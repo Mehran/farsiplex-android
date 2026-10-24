@@ -151,6 +151,12 @@ quality list → signed URL → `206` video bytes from the CDN:
 ./gradlew :app:testDebugUnitTest -PfarsiplexLive --tests "*LiveSiteTest*"
 ```
 
+The 1.0.0 build was also smoke-tested on an **Android TV (API 31) emulator**: the
+splash shows “Welcome to MehranFarsiPlex”, Home loads live rows, details render
+quality chips (`1080p` / `720p` / `480p`), pressing a chip starts real H.264/AAC
+decoding in ExoPlayer, and the search field raises the system IME
+(`mInputShown=true`) with live results while typing.
+
 ## Project layout
 
 ```
