@@ -204,7 +204,14 @@ object Parser {
     }
 
     private fun postIdFrom(doc: org.jsoup.nodes.Document): Int? {
+        // Player form: <form id="watch-14070"> — the episode's own post id.
         doc.selectFirst("[id^=watch-]")?.id()?.removePrefix("watch-")?.toIntOrNull()
+            ?.let { return it }
+        // Body class on episode pages: class="... postid-14070 ...".
+        // This must come before .starstruck[data-id] because the latter carries
+        // the parent series' rating id on episode pages, not the episode's id.
+        val bodyClass = doc.body()?.className() ?: return null
+        Regex("\\bpostid-(\\d+)").find(bodyClass)?.groupValues?.get(1)?.toIntOrNull()
             ?.let { return it }
         doc.selectFirst(".starstruck[data-id]")?.attr("data-id")?.toIntOrNull()
             ?.let { return it }
