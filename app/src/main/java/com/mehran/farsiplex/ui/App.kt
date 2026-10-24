@@ -102,17 +102,26 @@ private fun AppContent(container: AppContainer) {
 
                 val source = intent.source
                     ?: repo.sources(postId, series).firstOrNull()
-                    ?: throw IOException(
+                // If no source from intent and repo has no sources, try to fetch them
+                // expanded search may find available qualities even if initial check failed
+                val effectiveSource = if (source == null) {
+                    val repoSources = repo.sources(postId, series)
+                    repoSources.firstOrNull() ?: source
+                } else source
+
+                if (effectiveSource == null) {
+                    throw IOException(
                         if (series) "برای این قسمت لینک پخشی ثبت نشده است"
                         else "برای این عنوان لینک پخشی ثبت نشده است"
                     )
+                }
 
-                val url = repo.streamUrl(source, postId, series)
+                val url = repo.streamUrl(effectiveSource, postId, series)
                 nav.push(
                     Screen.Player(
                         url = url,
                         title = intent.title,
-                        subtitle = intent.subtitle ?: source.label
+                        subtitle = intent.subtitle ?: effectiveSource.label
                     )
                 )
             } catch (e: Exception) {

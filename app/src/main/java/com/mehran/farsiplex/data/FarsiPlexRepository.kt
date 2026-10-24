@@ -90,30 +90,38 @@ class FarsiPlexRepository(private val http: Http) {
      */
     suspend fun sources(postId: Int, series: Boolean): List<StreamSource> = coroutineScope {
         val type = if (series) "episodes" else "movie"
-        val found = (1..4).map { index ->
+        // Search up to index 10 to find available qualities; some titles have
+        // higher quality indices or dubbed versions beyond the first 4.
+        val found = (1..10).map { index ->
             async {
                 val url = runCatching { fetchSource(postId, type, index) }.getOrNull()
                 if (url == null) null else index to url
             }
         }.awaitAll().filterNotNull().sortedBy { it.first }
 
-        val qualities = found.map { Parser.qualityOf(it.second) }
-        val duplicateLabels = mutableMapOf<String, Int>()
-        found.mapIndexed { position, (index, url) ->
-            val quality = qualities[position]
-            val base = quality?.let { "${it}p" }
-                ?: if (found.size == 1) "نسخه اصلی" else "نسخه $index"
-            val seen = duplicateLabels.getOrDefault(base, 0) + 1
-            duplicateLabels[base] = seen
-            StreamSource(
-                index = index,
-                label = if (seen == 1) base else "$base · $seen",
-                quality = quality,
-                url = url
+        // If no sources found, return empty list early
+        val result = if (found.isEmpty()) {
+            emptyList<StreamSource>()
+        } else {
+            val qualities = found.map { Parser.qualityOf(it.second) }
+            val duplicateLabels = mutableMapOf<String, Int>()
+            found.mapIndexed { position, (index, url) ->
+                val quality = qualities[position]
+                val base = quality?.let { "${it}p" }
+                    ?: if (found.size == 1) "نسخه اصلی" else "نسخه $index"
+                val seen = duplicateLabels.getOrDefault(base, 0) + 1
+                duplicateLabels[base] = seen
+                StreamSource(
+                    index = index,
+                    label = if (seen == 1) base else "$base · $seen",
+                    quality = quality,
+                    url = url
+                )
+            }.sortedWith(
+                compareByDescending<StreamSource> { it.quality ?: 0 }.thenBy { it.index }
             )
-        }.sortedWith(
-            compareByDescending<StreamSource> { it.quality ?: 0 }.thenBy { it.index }
-        )
+        }
+        result
     }
 
     /**
