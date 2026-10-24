@@ -89,7 +89,7 @@ class FarsiPlexRepository(private val http: Http) {
      * one; the loop stops once two consecutive indices come back empty.
      */
     suspend fun sources(postId: Int, series: Boolean): List<StreamSource> = coroutineScope {
-        val type = if (series) "episodes" else "movie"
+        val type = if (series) "tv" else "movie"
         // Search up to index 10 to find available qualities; some titles have
         // higher quality indices or dubbed versions beyond the first 4.
         val found = (1..10).map { index ->
@@ -132,7 +132,7 @@ class FarsiPlexRepository(private val http: Http) {
      * otherwise a cached response signs whichever file was requested first.
      */
     suspend fun streamUrl(source: StreamSource, postId: Int, series: Boolean): String {
-        val type = if (series) "episodes" else "movies"
+        val type = if (series) "tv" else "movies"
         val encoded = URLEncoder.encode(source.url, "UTF-8")
         val url = Parser.BASE + "/jwplayer/?source=" + encoded +
             "&id=" + postId + "&type=" + type + "&_=" + System.currentTimeMillis()
