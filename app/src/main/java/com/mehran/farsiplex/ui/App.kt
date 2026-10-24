@@ -111,8 +111,8 @@ private fun AppContent(container: AppContainer) {
 
                 if (effectiveSource == null) {
                     throw IOException(
-                        if (series) "برای این قسمت لینک پخشی ثبت نشده است"
-                        else "برای این عنوان لینک پخشی ثبت نشده است"
+                        if (series) "برای این قسمت هنوز لینک پخش ثبت نشده - لطفاً بعداً امتحان کنید"
+                        else "برای این عنوان لینک پخش ثبت نشده است"
                     )
                 }
 

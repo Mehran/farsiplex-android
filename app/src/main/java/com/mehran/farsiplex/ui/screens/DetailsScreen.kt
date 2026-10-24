@@ -94,9 +94,8 @@ fun DetailsScreen(
     LaunchedEffect(details?.postId, details?.isSeries) {
         val d = details ?: return@LaunchedEffect
         val id = d.postId ?: return@LaunchedEffect
-        if (d.isSeries) return@LaunchedEffect
         sourcesLoading = true
-        sources = runCatching { repo.sources(id, false) }.getOrDefault(emptyList())
+        sources = runCatching { repo.sources(id, d.isSeries) }.getOrDefault(emptyList())
         sourcesLoading = false
         runCatching { playFocus.requestFocus() }
     }
@@ -161,16 +160,46 @@ private fun DetailsContent(
 ) {
     val firstEpisode = details.seasons.firstOrNull()?.episodes?.firstOrNull()
 
-    fun playMovie(source: StreamSource?) = onPlay(
-        PlayIntent(
-            path = details.card.path,
-            title = details.card.title,
-            series = false,
-            postId = details.postId,
-            source = source,
-            subtitle = source?.label
-        )
-    )
+    fun playMovie(source: StreamSource?, isSeries: Boolean, episodePostId: Int? = null) {
+        when {
+            isSeries && episodePostId != null && firstEpisode != null -> {
+                onPlay(
+                    PlayIntent(
+                        path = firstEpisode.path,
+                        title = "${details.card.title} · فصل ${firstEpisode.season} · قسمت ${firstEpisode.number}",
+                        series = true,
+                        postId = episodePostId,
+                        source = source,
+                        subtitle = firstEpisode.title
+                    )
+                )
+            }
+            isSeries && firstEpisode != null -> {
+                onPlay(
+                    PlayIntent(
+                        path = firstEpisode.path,
+                        title = "${details.card.title} · فصل ${firstEpisode.season} · قسمت ${firstEpisode.number}",
+                        series = true,
+                        postId = details.postId,
+                        source = source,
+                        subtitle = firstEpisode.title
+                    )
+                )
+            }
+            !isSeries -> {
+                onPlay(
+                    PlayIntent(
+                        path = details.card.path,
+                        title = details.card.title,
+                        series = false,
+                        postId = details.postId,
+                        source = source,
+                        subtitle = source?.label
+                    )
+                )
+            }
+        }
+    }
 
     LazyColumn(Modifier.fillMaxSize()) {
         item {
@@ -244,31 +273,22 @@ private fun DetailsContent(
                                 primary = true,
                                 focusRequester = playFocus,
                                 onClick = {
-                                    if (details.isSeries) {
-                                        firstEpisode?.let { episode ->
-                                            onPlay(
-                                                PlayIntent(
-                                                    path = episode.path,
-                                                    title = "${details.card.title} · فصل ${episode.season} · قسمت ${episode.number}",
-                                                    series = true,
-                                                    subtitle = episode.title
-                                                )
-                                            )
-                                        }
-                                    } else {
-                                        playMovie(sources.firstOrNull())
+                                    if (details.isSeries && firstEpisode != null) {
+                                        playMovie(sources.firstOrNull(), true, details.postId)
+                                    } else if (!details.isSeries) {
+                                        playMovie(sources.firstOrNull(), false)
                                     }
                                 }
                             )
                         }
                     }
 
-                    if (!details.isSeries) {
+                    if (sources.isNotEmpty() || sourcesLoading) {
                         Spacer(Modifier.height(14.dp))
                         QualityRow(
                             sources = sources,
                             loading = sourcesLoading,
-                            onPick = { playMovie(it) }
+                            onPick = { source -> playMovie(source, details.isSeries, details.postId) }
                         )
                     }
                 }
