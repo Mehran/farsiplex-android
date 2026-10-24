@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-cast-api-enabled="true"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><style media="all">html,body{padding:0;margin:0;height:100%}#player{width:100%!important;height:100%!important;overflow:hidden;background-color:#000}</style><title>JW Player</title> <script src='https://ssl.p.jwpcdn.com/player/v/8.51.9/jwplayer.js'></script> <script type="text/javascript">jwplayer.key="64HPbvSQorQcd52B8XFuhMtEoitbvY/EXJmMBfKcXZQU2Rnn";</script> <script type="text/javascript">var jw = {"file":"https:\/\/pl.farsiplex.buzz\/movies\/1405\/mahoor-480.new.mp4?md5=7jXZu6CXMhHFFSaGd95GPA","file2":"https:\/\/pl.farsiland.buzz\/movies\/1405\/mahoor-480.new.mp4?md5=7jXZu6CXMhHFFSaGd95GPA","image":"https:\/\/farsiplex.com\/wp-content\/uploads\/2026\/09\/mahoor.jpg","color":"#0b7ef4","title":"Mahoor","link":"https:\/\/farsiplex.com","logo":"https:\/\/farsiplex.com\/wp-content\/uploads\/2024\/04\/favicon-32x32-1.png","auto":"false","text":"Powered by FarsiPlex Player","lposi":"bottom-right","flash":"https:\/\/farsiplex.com\/wp-content\/themes\/farsiplex\/assets\/jwplayer\/jwplayer.flash.swf"}</script> </head><body data-rsssl=1 class="jwplayer"><div id="player"></div> <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> <script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js"></script> string(57) "https://cdn2.farsiland.com/movies/1405/mahoor-480.new.mp4" <script type="text/javascript">var primaryAdTag = "https://pubads.g.doubleclick.net/gampad/ads?iu=/21822577512,22994763692/farsiplex.com_video&description_url=https%3A%2F%2Ffarsiplex.com%2F&tfcd=0&npa=0&sz=1x1%7C640x480&min_ad_duration=5000&max_ad_duration=60000&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=";
+			var fallbackAdTag = "https://pubads.g.doubleclick.net/gampad/ads?iu=/6428571,22994763692/farsiplex.com-video&description_url=farsiplex.com&tfcd=0&npa=0&sz=640x480&max_ad_duration=30000&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=";
+			var floor = "https://pubads.g.doubleclick.net/gampad/ads?iu=/21822577512,22994763692/farsiplex.com_video_5&description_url=http%3A%2F%2Ffarsiplex.com%2F&tfcd=0&npa=0&sz=1x1%7C640x480&min_ad_duration=5000&max_ad_duration=60000&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=";			
+			var adFailed = false;
+            const player = jwplayer('player').setup({
+                image: jw.image,
+                mute: false,
+                volume: 85,
+                autostart: jw.auto,
+                repeat: false,
+                abouttext: jw.text,
+                aboutlink: jw.link,
+				title: jw.title,
+				cast: {},
+                skin: {
+                    active: jw.color
+                },
+                logo: {
+                    file: jw.logo,
+                    hide: true,
+                    link: jw.link,
+                    margin: '15',
+                    position: jw.lposi
+                },
+                sources: [{
+                    file: jw.file,
+                    type: 'mp4',
+					label: "Server 1"
+				}
+				,{	
+                    file: jw.file2,
+                    type: 'mp4',
+					label: "Server 2"				
+                }
+				],	
+                advertising: {
+                    client: "googima",
+                    schedule: [
+                        {
+                            offset: "pre",
+                            tag: [floor, fallbackAdTag, primaryAdTag]
+                        },
+                        {
+                            offset: 1, 
+                            tag: [primaryAdTag, fallbackAdTag]
+                        },
+                        {
+                            offset: "30%",
+                            tag: [fallbackAdTag, primaryAdTag]
+                        },
+                        {
+                            offset: "60%",
+                            tag: [primaryAdTag, fallbackAdTag]
+                        },
+                        {
+                            offset: "90%",
+                            tag: [primaryAdTag, fallbackAdTag]
+                        },                         
+                        {
+                            offset: "post",
+                            tag: [fallbackAdTag, primaryAdTag]
+                        }
+                    ],
+                    requestTimeout: 2500
+                }				
+            })
+			player.on('ready', function(){
+				jwplayer().addButton(
+				'<svg xmlns="http://www.w3.org/2000/svg" class="jw-svg-icon jw-svg-icon-rewind2" viewBox="0 0 240 240" focusable="false"><path d="m 25.993957,57.778 v 125.3 c 0.03604,2.63589 2.164107,4.76396 4.8,4.8 h 62.7 v -19.3 h -48.2 v -96.4 H 160.99396 v 19.3 c 0,5.3 3.6,7.2 8,4.3 l 41.8,-27.9 c 2.93574,-1.480087 4.13843,-5.04363 2.7,-8 -0.57502,-1.174985 -1.52502,-2.124979 -2.7,-2.7 l -41.8,-27.9 c -4.4,-2.9 -8,-1 -8,4.3 v 19.3 H 30.893957 c -2.689569,0.03972 -4.860275,2.210431 -4.9,4.9 z m 163.422413,73.04577 c -3.72072,-6.30626 -10.38421,-10.29683 -17.7,-10.6 -7.31579,0.30317 -13.97928,4.29374 -17.7,10.6 -8.60009,14.23525 -8.60009,32.06475 0,46.3 3.72072,6.30626 10.38421,10.29683 17.7,10.6 7.31579,-0.30317 13.97928,-4.29374 17.7,-10.6 8.60009,-14.23525 8.60009,-32.06475 0,-46.3 z m -17.7,47.2 c -7.8,0 -14.4,-11 -14.4,-24.1 0,-13.1 6.6,-24.1 14.4,-24.1 7.8,0 14.4,11 14.4,24.1 0,13.1 -6.5,24.1 -14.4,24.1 z m -47.77056,9.72863 v -51 l -4.8,4.8 -6.8,-6.8 13,-12.99999 c 3.02543,-3.03598 8.21053,-0.88605 8.2,3.4 v 62.69999 z"></path></svg>',
+				"Forward 10 Seconds", 
+				function() {
+					jwplayer().seek( jwplayer().getPosition()+10 );
+					jwplayer().play();
+				},
+				"ff11"
+				);
+				jQuery(function($) {
+					$("div[button=ff11]").detach().insertAfter('.jw-icon-rewind');
+				});							
+			});	
+
+            var videoStarted = false;
+            player.on('play', function() {
+                if (!videoStarted && player.getPosition() < 1) {
+                    videoStarted = true;
+                    
+                    window.parent.postMessage({
+                        source: 'farsiland_player',
+                        type: 'video_start',
+                        payload: {
+                            event: 'video_start',
+                            player_type: 'jwplayer',
+                            video_url: jw.file || 'unknown',
+                            video_title: jw.title || 'unknown'
+                        }
+                    }, '*');
+                    
+                    console.log('📹 JWPlayer started');
+                }
+            });
+                        
+            // GA4 Error Tracking - JWPlayer
+            player.on('error', function(evt){
+                var errorData = {
+                    event: 'video_error',
+                    player_type: 'jwplayer',
+                    error_code: evt.code || 'UNKNOWN',
+                    error_message: evt.message || 'JWPlayer Error',
+                    video_url: jw.file || 'unknown',
+                    timestamp: new Date().toISOString()
+                };
+                
+                console.log('📤 JWPlayer error detected:', errorData);
+                
+                // ارسال به parent window
+                try {
+                    window.parent.postMessage({
+                        source: 'farsiland_player',
+                        type: 'video_error',
+                        payload: errorData
+                    }, '*');
+                    console.log('✅ Error sent to parent via postMessage');
+                } catch(e) {
+                    console.error('❌ postMessage failed:', e);
+                }
+            });
+
+			/*
+			player.on('error', function(evt){
+				const errorData = {
+					message: 'jwPlayer Error',
+					url: '/jwplayer/?source=https://cdn2.farsiland.com/movies/1405/mahoor-480.new.mp4&id=17091&type=mp4',
+					stack: JSON.stringify(evt),
+					//userAgent: userAgent,
+					browserName: browserName,
+					browserVersion: browserVersion,
+					osName: osName,
+					osVersion: osVersion,
+					deviceType: deviceType,
+					deviceVendor: deviceVendor,			
+					country: country,
+					timestamp: new Date().toISOString()
+				};
+				sendErrors(errorData);
+				console.log('report sent: '+JSON.stringify(evt));
+			});	
+			const country = 'CA';
+			const userAgent = 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36';
+			const parsedUA = bowser.parse(userAgent);
+			const browserName = parsedUA.browser.name || 'Unknown';
+			const browserVersion = parsedUA.browser.version || 'Unknown';
+			const osName = parsedUA.os.name || 'Unknown';
+			const osVersion = parsedUA.os.version || 'Unknown';
+			const deviceType = parsedUA.platform.type || 'Unknown';
+			const deviceVendor = parsedUA.platform.vendor || 'Unknown';
+			// تابع برای ارسال خطاها به سرور
+			function sendErrors(errorData) {
+				fetch('https://farsiplex.com/report-js-error.php', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(errorData)
+				});
+			}
+*/			
+			/*	
+			player.on('error', function(evt){
+				var theFile;
+				theFile = jwplayer().getPlaylistItem()['file'];	
+				var thePosition = jwplayer().getPosition();					
+				if (theFile == jw.file) {			
+					jwplayer().load({file:jw.file2});
+					console.log('new source = ' + jw.file2);
+				} else {
+					jwplayer().load({file:jw.file});
+					console.log('new source = ' + jw.file);					
+				}				
+				jwplayer().seek(thePosition);
+				jwplayer().play();
+			});
+		
+			player.on('buffer', function(event){
+				var theFile;
+				theFile = jwplayer().getPlaylistItem()['file'];	
+				var thePosition = jwplayer().getPosition();	
+				//console.log('Source = ' + theFile);		
+				if(event.reason == 'stalled' ) {
+					 if (theFile == jw.file) {			
+					 	jwplayer().load({file:jw.file2});
+						console.log('new source = ' + jw.file2);						
+					 } else {
+						jwplayer().load({file:jw.file});
+						console.log('new source = ' + jw.file);						
+					 }	
+					 jwplayer().seek(thePosition);
+					 jwplayer().play();	 
+				}		 
+			});
+*/
+			// get mp4 extention  
+			/*	 
+			function get_url_extension( url ) {
+				return url.split(/[#?]/)[0].split('.').pop().trim();
+			}	 
+			alert(get_url_extension(theFile1));
+			*/</script> </body></html>tml>
