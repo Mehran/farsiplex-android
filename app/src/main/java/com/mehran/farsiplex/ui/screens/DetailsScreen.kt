@@ -91,9 +91,17 @@ fun DetailsScreen(
     }
 
     val details = (state as? DetailsState.Ready)?.details
-    LaunchedEffect(details?.postId, details?.isSeries) {
+    val firstEpisode = details?.seasons?.firstOrNull()?.episodes?.firstOrNull()
+    LaunchedEffect(details?.postId, details?.isSeries, firstEpisode?.path) {
         val d = details ?: return@LaunchedEffect
-        val id = d.postId ?: return@LaunchedEffect
+        // For series, fetch sources for the first episode's postId (not the series postId)
+        // because episode streams belong to each episode's own postId
+        val targetPostId = if (d.isSeries && firstEpisode != null) {
+            runCatching { repo.postIdFor(firstEpisode.path) }.getOrNull() ?: d.postId
+        } else {
+            d.postId
+        }
+        val id = targetPostId ?: return@LaunchedEffect
         sourcesLoading = true
         sources = runCatching { repo.sources(id, d.isSeries) }.getOrDefault(emptyList())
         sourcesLoading = false
